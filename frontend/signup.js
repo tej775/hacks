@@ -1,5 +1,5 @@
 // Backend API URL
-const API_URL = 'http://localhost:5000/api';
+const API_URL = 'https://b2b-backend-u7k0.onrender.com/api';
 
 // DOM Content Loaded
 document.addEventListener("DOMContentLoaded", function () {
