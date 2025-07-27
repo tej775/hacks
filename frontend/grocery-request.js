@@ -1,7 +1,7 @@
 // Grocery Request Form JavaScript
 class GroceryRequestForm {
     constructor() {
-        this.apiBaseUrl = 'http://localhost:5000/api';
+        this.apiBaseUrl = 'https://b2b-backend-u7k0.onrender.com/api';
         this.currentUser = null;
         this.init();
     }
