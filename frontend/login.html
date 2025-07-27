@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login - VendorBridge</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <style>
+      /* Login Page Specific Styles */
+      .login-page {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        padding: 20px;
+        font-family: "Inter", sans-serif;
+      }
+
+      .login-wrapper {
+        background: white;
+        border-radius: 20px;
+        padding: 40px;
+        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+        width: 100%;
+        max-width: 400px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .login-wrapper::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, #667eea, #764ba2, #667eea);
+        background-size: 200% 100%;
+        animation: shimmer 2s infinite;
+      }
+
+      @keyframes shimmer {
+        0% {
+          background-position: -200% 0;
+        }
+        100% {
+          background-position: 200% 0;
+        }
+      }
+
+      .login-header {
+        text-align: center;
+        margin-bottom: 30px;
+      }
+
+      .login-header h1 {
+        font-size: 2.2rem;
+        font-weight: 700;
+        color: #2d3748;
+        margin-bottom: 8px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .login-header p {
+        color: #718096;
+        font-size: 1rem;
+        margin-bottom: 0;
+      }
+
+      .form-group {
+        margin-bottom: 20px;
+        position: relative;
+      }
+
+      .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 500;
+        color: #2d3748;
+        font-size: 0.9rem;
+      }
+
+      .form-group input {
+        width: 100%;
+        padding: 15px 50px 15px 20px;
+        border: 2px solid #e2e8f0;
+        border-radius: 12px;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        background: #f7fafc;
+        box-sizing: border-box;
+      }
+
+      .form-group input:focus {
+        outline: none;
+        border-color: #667eea;
+        background: white;
+        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        transform: translateY(-2px);
+      }
+
+      .input-icon {
+        position: absolute;
+        right: 20px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #a0aec0;
+        font-size: 1.1rem;
+        transition: color 0.3s ease;
+      }
+
+      .form-group input:focus + .input-icon {
+        color: #667eea;
+      }
+
+      .checkbox-group {
+        display: flex;
+        align-items: center;
+        margin-bottom: 25px;
+        gap: 10px;
+      }
+
+      .checkbox-group input[type="checkbox"] {
+        width: 18px;
+        height: 18px;
+        accent-color: #667eea;
+        cursor: pointer;
+      }
+
+      .checkbox-group label {
+        color: #4a5568;
+        font-size: 0.9rem;
+        cursor: pointer;
+        margin: 0;
+      }
+
+      .login-btn {
+        width: 100%;
+        padding: 15px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border: none;
+        border-radius: 12px;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        margin-bottom: 20px;
+      }
+
+      .login-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+      }
+
+      .login-btn:active {
+        transform: translateY(0);
+      }
+
+      .login-links {
+        text-align: center;
+        margin-top: 20px;
+      }
+
+      .login-links a {
+        color: #667eea;
+        text-decoration: none;
+        font-weight: 500;
+        margin: 0 10px;
+        transition: color 0.3s ease;
+      }
+
+      .login-links a:hover {
+        color: #5a67d8;
+        text-decoration: underline;
+      }
+
+      .divider {
+        text-align: center;
+        margin: 20px 0;
+        position: relative;
+      }
+
+      .divider::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background: #e2e8f0;
+      }
+
+      .divider span {
+        background: white;
+        padding: 0 15px;
+        color: #a0aec0;
+        font-size: 0.9rem;
+      }
+
+      /* Responsive Design */
+      @media (max-width: 480px) {
+        .login-wrapper {
+          padding: 30px 25px;
+          margin: 10px;
+        }
+
+        .login-header h1 {
+          font-size: 1.8rem;
+        }
+
+        .form-group input {
+          padding: 12px 45px 12px 15px;
+        }
+      }
+
+      /* Animation for form elements */
+      .form-group {
+        animation: slideUp 0.6s ease forwards;
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      .form-group:nth-child(1) {
+        animation-delay: 0.1s;
+      }
+      .form-group:nth-child(2) {
+        animation-delay: 0.2s;
+      }
+      .form-group:nth-child(3) {
+        animation-delay: 0.3s;
+      }
+      .checkbox-group {
+        animation-delay: 0.4s;
+      }
+      .login-btn {
+        animation-delay: 0.5s;
+      }
+
+      @keyframes slideUp {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="login-page">
+      <div class="login-wrapper">
+        <div class="login-header">
+          <h1><i class="fas fa-handshake"></i> VendorBridge</h1>
+          <p>Welcome back! Please sign in to your account</p>
+        </div>
+
+        <form id="loginForm">
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              required
+              placeholder="Enter your email"
+            />
+            <i class="fas fa-envelope input-icon"></i>
+          </div>
+
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              required
+              placeholder="Enter your password"
+            />
+            <i class="fas fa-lock input-icon"></i>
+          </div>
+
+          <div class="checkbox-group">
+            <input type="checkbox" id="rememberMe" name="rememberMe" />
+            <label for="rememberMe">Remember me</label>
+          </div>
+
+          <button type="submit" class="login-btn">
+            <i class="fas fa-sign-in-alt"></i>
+            Sign In
+          </button>
+        </form>
+
+        <div class="divider">
+          <span>or</span>
+        </div>
+
+        <div class="login-links">
+          <a href="signin.html">
+            <i class="fas fa-palette"></i>
+            Go to Styled Sign In
+          </a>
+          <span>•</span>
+          <a href="index.html">
+            <i class="fas fa-home"></i>
+            Back to Home
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Simple form handling
+      document
+        .getElementById("loginForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          const email = document.getElementById("email").value;
+          const password = document.getElementById("password").value;
+          const rememberMe = document.getElementById("rememberMe").checked;
+
+          // Simple validation
+          if (!email || !password) {
+            alert("Please fill in all fields");
+            return;
+          }
+
+          // Demo credentials check
+          if (email === "demo@vendorbridge.com" && password === "demo123") {
+            alert("Login successful! (Demo credentials)");
+            console.log("Login data:", { email, password, rememberMe });
+            // Redirect to dashboard or home page
+            // window.location.href = 'dashboard.html';
+          } else {
+            alert("Invalid credentials. Try demo@vendorbridge.com / demo123");
+          }
+        });
+
+      // Add some interactive effects
+      document.querySelectorAll(".form-group input").forEach((input) => {
+        input.addEventListener("focus", function () {
+          this.parentElement.style.transform = "scale(1.02)";
+        });
+
+        input.addEventListener("blur", function () {
+          this.parentElement.style.transform = "scale(1)";
+        });
+      });
+
+      console.log(
+        "Demo credentials: email: demo@vendorbridge.com, password: demo123"
+      );
+    </script>
+  </body>
+</html>

@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Supplier Dashboard - VendorBridge</title>
+    <link rel="stylesheet" href="supplier-dashboard.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Header -->
+        <header class="dashboard-header">
+            <div class="header-content">
+                <div class="logo">
+                    <h1><i class="fas fa-handshake"></i> VendorBridge</h1>
+                </div>
+                <div class="user-info">
+                    <span class="welcome-text">Welcome, <span id="supplierName">Supplier</span></span>
+                    <div class="user-menu">
+                        <button class="user-menu-btn" onclick="toggleUserMenu()">
+                            <i class="fas fa-user-circle"></i>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="user-dropdown" id="userDropdown">
+                            <a href="#" onclick="editProfile()"><i class="fas fa-edit"></i> Edit Profile</a>
+                            <a href="#" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Dashboard Content -->
+        <main class="dashboard-main">
+            <!-- Stats Cards -->
+            <div class="stats-grid">
+                <div class="stat-card orders">
+                    <div class="stat-icon">
+                        <i class="fas fa-shopping-cart"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3 id="ordersCount">0</h3>
+                        <p>Total Orders</p>
+                        <span class="stat-change positive">
+                            <i class="fas fa-arrow-up"></i> +12 this month
+                        </span>
+                    </div>
+                </div>
+
+                <div class="stat-card rating">
+                    <div class="stat-icon">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3 id="averageRating">4.8</h3>
+                        <p>Average Rating</p>
+                        <div class="rating-stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stat-card revenue">
+                    <div class="stat-icon">
+                        <i class="fas fa-dollar-sign"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3 id="totalRevenue">$0</h3>
+                        <p>Total Revenue</p>
+                        <span class="stat-change positive">
+                            <i class="fas fa-arrow-up"></i> +8.5% this month
+                        </span>
+                    </div>
+                </div>
+
+                <div class="stat-card vendors">
+                    <div class="stat-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3 id="activeVendors">0</h3>
+                        <p>Active Vendors</p>
+                        <span class="stat-change positive">
+                            <i class="fas fa-arrow-up"></i> +3 this week
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <!-- Recent Orders Section -->
+            <div class="dashboard-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-shopping-cart"></i> Recent Orders</h2>
+                    <button class="btn-secondary" onclick="viewOrders()">View All</button>
+                </div>
+                <div class="orders-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Order ID</th>
+                                <th>Vendor Name</th>
+                                <th>Email</th>
+                                <th>Order Items</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="ordersTableBody">
+                            <tr>
+                                <td colspan="5" class="no-data">No orders found</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Ratings & Reviews Section -->
+            <div class="dashboard-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-star"></i> Ratings & Reviews</h2>
+                    <button class="btn-secondary" onclick="viewAllReviews()">View All</button>
+                </div>
+                <div class="reviews-grid">
+                    <div class="rating-summary">
+                        <div class="rating-overview">
+                            <div class="rating-score">
+                                <span class="score" id="overallRating">4.8</span>
+                                <div class="rating-stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <p><span id="totalReviews">127</span> reviews</p>
+                            </div>
+                        </div>
+                        <div class="rating-breakdown">
+                            <div class="rating-bar">
+                                <span>5 stars</span>
+                                <div class="bar"><div class="fill" style="width: 75%"></div></div>
+                                <span>75%</span>
+                            </div>
+                            <div class="rating-bar">
+                                <span>4 stars</span>
+                                <div class="bar"><div class="fill" style="width: 20%"></div></div>
+                                <span>20%</span>
+                            </div>
+                            <div class="rating-bar">
+                                <span>3 stars</span>
+                                <div class="bar"><div class="fill" style="width: 3%"></div></div>
+                                <span>3%</span>
+                            </div>
+                            <div class="rating-bar">
+                                <span>2 stars</span>
+                                <div class="bar"><div class="fill" style="width: 1%"></div></div>
+                                <span>1%</span>
+                            </div>
+                            <div class="rating-bar">
+                                <span>1 star</span>
+                                <div class="bar"><div class="fill" style="width: 1%"></div></div>
+                                <span>1%</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="recent-reviews">
+                        <h3>Recent Reviews</h3>
+                        <div id="recentReviewsList">
+                            <div class="review-item">
+                                <div class="review-header">
+                                    <div class="reviewer-info">
+                                        <strong>John Doe</strong>
+                                        <div class="rating-stars small">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                        </div>
+                                    </div>
+                                    <span class="review-date">2 days ago</span>
+                                </div>
+                                <p class="review-text">Excellent service and fast delivery. Highly recommended!</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="dashboard-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-bolt"></i> Quick Actions</h2>
+                </div>
+                <div class="quick-actions">
+                    <button class="action-btn" onclick="viewOrders()">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span>Orders</span>
+                    </button>
+                    <button class="action-btn" onclick="updateInventory()">
+                        <i class="fas fa-boxes"></i>
+                        <span>Update Inventory</span>
+                    </button>
+                    <button class="action-btn" onclick="manageProducts()">
+                        <i class="fas fa-cog"></i>
+                        <span>Manage Products</span>
+                    </button>
+                    <button class="action-btn" onclick="contactSupport()">
+                        <i class="fas fa-headset"></i>
+                        <span>Contact Support</span>
+                    </button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-spinner">
+            <i class="fas fa-spinner fa-spin"></i>
+            <p>Loading...</p>
+        </div>
+    </div>
+
+    <script src="supplier-dashboard.js"></script>
+</body>
+</html>

@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign Up - VendorBridge</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="signin.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <!-- Google Sign-In script removed to fix 403 error -->
+  </head>
+  <body>
+    <!-- Navigation -->
+    <nav class="navbar">
+      <div class="nav-container">
+        <div class="nav-logo" onclick="window.location.href='index.html'">
+          <i class="fas fa-handshake"></i>
+          <span>VendorBridge</span>
+        </div>
+        <div class="nav-menu">
+          <a href="index.html" class="nav-link">Home</a>
+          <a href="#" class="nav-link">How it Works</a>
+          <a href="#" class="nav-link">About</a>
+          <a href="signin.html" class="nav-link">Sign In</a>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Sign Up Section -->
+    <section class="signin-section">
+      <div class="signin-container">
+        <!-- Sign Up Form -->
+        <div id="signupForm" class="signin-card">
+          <div class="signin-header">
+            <h1>Create Account</h1>
+            <p>Join VendorBridge and start connecting</p>
+          </div>
+
+          <!-- Sign Up Form -->
+          <form id="signupFormMain" class="signin-form">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="firstName">First Name</label>
+                <input type="text" id="firstName" name="firstName" required />
+                <i class="fas fa-user input-icon"></i>
+              </div>
+              <div class="form-group">
+                <label for="lastName">Last Name</label>
+                <input type="text" id="lastName" name="lastName" required />
+                <i class="fas fa-user input-icon"></i>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="signupEmail">Email Address</label>
+              <input type="email" id="signupEmail" name="email" required />
+              <i class="fas fa-envelope input-icon"></i>
+            </div>
+
+            <div class="form-group">
+              <label for="signupPhone">Phone Number</label>
+              <input type="tel" id="signupPhone" name="phone" required pattern="[0-9]{10}" placeholder="1234567890" />
+              <i class="fas fa-phone input-icon"></i>
+            </div>
+
+            <div class="form-group">
+              <label for="signupPincode">Pin Code</label>
+              <input type="text" id="signupPincode" name="pincode" required pattern="[0-9]{6}" placeholder="110001" />
+              <i class="fas fa-map-pin input-icon"></i>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="signupPassword">Password</label>
+                <input type="password" id="signupPassword" name="password" required minlength="8" />
+                <i class="fas fa-lock input-icon"></i>
+                <i
+                  class="fas fa-eye toggle-password"
+                  onclick="togglePassword('signupPassword')"
+                ></i>
+              </div>
+              <div class="form-group">
+                <label for="confirmPassword">Confirm Password</label>
+                <input type="password" id="confirmPassword" name="confirmPassword" required />
+                <i class="fas fa-lock input-icon"></i>
+                <i
+                  class="fas fa-eye toggle-password"
+                  onclick="togglePassword('confirmPassword')"
+                ></i>
+              </div>
+            </div>
+
+            <div class="form-options">
+              <label class="checkbox-container">
+                <input type="checkbox" id="agreeTerms" name="agreeTerms" required />
+                <span class="checkmark"></span>
+                I agree to the <a href="#">Terms of Service</a> and
+                <a href="#">Privacy Policy</a>
+              </label>
+            </div>
+
+            <button type="submit" class="btn-primary signin-btn">
+              <i class="fas fa-user-plus"></i>
+              Create Account
+            </button>
+          </form>
+
+          <!-- Divider -->
+          <div class="divider">
+            <span>or</span>
+          </div>
+
+          <!-- Google Authentication -->
+          <div class="google-auth">
+            <div
+              id="g_id_onload"
+              data-client_id="YOUR_GOOGLE_CLIENT_ID"
+              data-context="signup"
+              data-ux_mode="popup"
+              data-callback="handleGoogleSignup"
+              data-auto_prompt="false"
+            ></div>
+
+            <div
+              class="g_id_signin"
+              data-type="standard"
+              data-size="large"
+              data-theme="outline"
+              data-text="signup_with"
+              data-shape="rectangular"
+              data-logo_alignment="left"
+            ></div>
+          </div>
+
+          <div class="signup-link">
+            <p>
+              Already have an account?
+              <a href="signin.html">Sign In</a>
+            </p>
+          </div>
+
+
+        </div>
+
+        <!-- Vendor Signup Form -->
+        <div id="vendorSignupForm" class="signup-form hidden">
+          <div class="signin-card">
+            <div class="signin-header">
+              <h1>Vendor Registration</h1>
+              <p>Join as a vendor and connect with suppliers</p>
+            </div>
+
+            <form id="vendorRegisterForm" class="signin-form">
+              <!-- Business Information -->
+              <div class="form-section">
+                <h3 class="section-title">Business Information</h3>
+                <div class="form-group">
+                  <label for="businessName">Business Name</label>
+                  <input type="text" id="businessName" name="businessName" required />
+                  <i class="fas fa-store input-icon"></i>
+                </div>
+                <div class="form-group">
+                  <label for="businessType">Business Type</label>
+                  <select id="businessType" name="businessType" required onchange="updateMaterialOptions()">
+                    <option value="">Select Street Food Stall Type</option>
+                    <option value="chat-stall">Chat Stall</option>
+                    <option value="tea-stall">Tea Stall</option>
+                    <option value="coffee-stall">Coffee Stall</option>
+                    <option value="juice-stall">Juice Stall</option>
+                    <option value="snack-stall">Snack Stall</option>
+                    <option value="sandwich-stall">Sandwich Stall</option>
+                    <option value="dosa-stall">Dosa Stall</option>
+                    <option value="vada-pav-stall">Vada Pav Stall</option>
+                    <option value="pani-puri-stall">Pani Puri Stall</option>
+                    <option value="ice-cream-stall">Ice Cream Stall</option>
+                    <option value="fruit-juice-stall">Fresh Fruit Juice Stall</option>
+                    <option value="paratha-stall">Paratha Stall</option>
+                    <option value="other-food-stall">Other Food Stall</option>
+                  </select>
+                  <i class="fas fa-store input-icon"></i>
+                </div>
+                <div class="form-group">
+                  <label for="businessAddress">Business Address</label>
+                  <textarea id="businessAddress" name="businessAddress" rows="3" required></textarea>
+                  <i class="fas fa-map-marker-alt input-icon"></i>
+                </div>
+                <div class="form-row">
+                  <div class="form-group">
+                    <label for="city">City</label>
+                    <input type="text" id="city" name="city" required />
+                    <i class="fas fa-city input-icon"></i>
+                  </div>
+                  <div class="form-group">
+                    <label for="state">State</label>
+                    <input type="text" id="state" name="state" required />
+                    <i class="fas fa-map input-icon"></i>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="operatingHours">Operating Hours</label>
+                  <input type="text" id="operatingHours" name="operatingHours" placeholder="e.g., 9 AM - 6 PM" required />
+                  <i class="fas fa-clock input-icon"></i>
+                </div>
+              </div>
+
+              <!-- Preferred Materials/Supplies -->
+              <div class="form-section">
+                <h3 class="section-title">Preferred Materials/Supplies</h3>
+                <p class="section-description">Select the materials and supplies you typically need for your business:</p>
+                <div id="materialOptions" class="checkbox-grid">
+                  <!-- Materials will be populated dynamically based on business type -->
+                  <p class="no-selection">Please select a business type above to see relevant materials.</p>
+                </div>
+              </div>
+
+              <div class="form-options">
+                <label class="checkbox-container">
+                  <input type="checkbox" id="vendorAgreeTerms" required />
+                  <span class="checkmark"></span>
+                  I agree to the <a href="#">Terms of Service</a> and
+                  <a href="#">Privacy Policy</a>
+                </label>
+              </div>
+
+              <button type="submit" class="btn-primary signin-btn">
+                <i class="fas fa-user-plus"></i>
+                Register as Vendor
+              </button>
+            </form>
+
+            <div class="signup-link">
+              <p>
+                <a href="#" onclick="showMainSignup()">← Back to sign up</a>
+              </p>
+              <p>
+                Already have an account?
+                <a href="signin.html">Sign In</a>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Supplier Signup Form -->
+        <div id="supplierSignupForm" class="signup-form hidden">
+          <div class="signin-card">
+            <div class="signin-header">
+              <h1>Supplier Registration</h1>
+              <p>Join as a supplier and connect with vendors</p>
+            </div>
+
+            <form id="supplierRegisterForm" class="signin-form">
+              <!-- Company Information -->
+              <div class="form-section">
+                <h3 class="section-title">Company Information</h3>
+                <div class="form-group">
+                  <label for="companyName">Company Name</label>
+                  <input type="text" id="companyName" name="companyName" required />
+                  <i class="fas fa-building input-icon"></i>
+                </div>
+                <div class="form-group">
+                  <label for="companyType">Company Type</label>
+                  <select id="companyType" name="companyType" required>
+                    <option value="">Select Company Type</option>
+                    <option value="manufacturer">Manufacturer</option>
+                    <option value="wholesaler">Wholesaler</option>
+                    <option value="distributor">Distributor</option>
+                    <option value="importer">Importer</option>
+                    <option value="other">Other</option>
+                  </select>
+                  <i class="fas fa-industry input-icon"></i>
+                </div>
+                <div class="form-group">
+                  <label for="companyAddress">Company Address</label>
+                  <textarea id="companyAddress" name="companyAddress" rows="3" required></textarea>
+                  <i class="fas fa-map-marker-alt input-icon"></i>
+                </div>
+                <div class="form-row">
+                  <div class="form-group">
+                    <label for="supplierCity">City</label>
+                    <input type="text" id="supplierCity" name="city" required />
+                    <i class="fas fa-city input-icon"></i>
+                  </div>
+                  <div class="form-group">
+                    <label for="supplierState">State</label>
+                    <input type="text" id="supplierState" name="state" required />
+                    <i class="fas fa-map input-icon"></i>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="gstNumber">GST Number (Optional)</label>
+                  <input type="text" id="gstNumber" name="gstNumber" />
+                  <i class="fas fa-file-invoice input-icon"></i>
+                </div>
+                <div class="form-group">
+                  <label for="yearsInBusiness">Years in Business</label>
+                  <select id="yearsInBusiness" name="yearsInBusiness" required>
+                    <option value="">Select Years</option>
+                    <option value="0-1">0-1 years</option>
+                    <option value="2-5">2-5 years</option>
+                    <option value="6-10">6-10 years</option>
+                    <option value="11-20">11-20 years</option>
+                    <option value="20+">20+ years</option>
+                  </select>
+                  <i class="fas fa-calendar input-icon"></i>
+                </div>
+              </div>
+
+              <!-- Materials You Supply -->
+              <div class="form-section">
+                <h3 class="section-title">Materials You Supply</h3>
+                <p class="section-description">Select the materials/supplies you can provide to street food vendors:</p>
+                <div class="checkbox-grid" id="supplierMaterialOptions">
+                  <label class="checkbox-item">
+                    <input type="checkbox" name="suppliedMaterials" value="fruits" />
+                    <span class="checkmark"></span>
+                    <i class="fas fa-apple-alt"></i>
+                    Fruits
+                  </label>
+                  <label class="checkbox-item">
+                    <input type="checkbox" name="suppliedMaterials" value="vegetables" />
+                    <span class="checkmark"></span>
+                    <i class="fas fa-carrot"></i>
+                    Vegetables
+                  </label>
+                  <label class="checkbox-item">
+                    <input type="checkbox" name="suppliedMaterials" value="grains" />
+                    <span class="checkmark"></span>
+                    <i class="fas fa-seedling"></i>
+                    Grains & Flour
+                  </label>
+                  <label class="checkbox-item">
+                    <input type="checkbox" name="suppliedMaterials" value="spices" />
+                    <span class="checkmark"></span>
+                    <i class="fas fa-pepper-hot"></i>
+                    Spices & Seasonings
+                  </label>
+                  <label class="checkbox-item">
+                    <input type="checkbox" name="suppliedMaterials" value="oil" />
+                    <span class="checkmark"></span>
+                    <i class="fas fa-tint"></i>
+                    Cooking Oil
+                  </label>
+                  <label class="checkbox-item">
+                    <input type="checkbox" name="suppliedMaterials" value="dairy" />
+                    <span class="checkmark"></span>
+                    <i class="fas fa-glass-whiskey"></i>
+                    Dairy Products
+                  </label>
+                  <label class="checkbox-item">
+                    <input type="checkbox" name="suppliedMaterials" value="plates" />
+                    <span class="checkmark"></span>
+                    <i class="fas fa-utensils"></i>
+                    Plates & Bowls
+                  </label>
+                  <label class="checkbox-item">
+                    <input type="checkbox" name="suppliedMaterials" value="cups" />
+                    <span class="checkmark"></span>
+                    <i class="fas fa-coffee"></i>
+                    Cups & Glasses
+                  </label>
+                  <label class="checkbox-item">
+                    <input type="checkbox" name="suppliedMaterials" value="napkins" />
+                    <span class="checkmark"></span>
+                    <i class="fas fa-tissue"></i>
+                    Napkins & Tissues
+                  </label>
+                  <label class="checkbox-item">
+                    <input type="checkbox" name="suppliedMaterials" value="packaging" />
+                    <span class="checkmark"></span>
+                    <i class="fas fa-box"></i>
+                    Food Packaging
+                  </label>
+                  <label class="checkbox-item">
+                    <input type="checkbox" name="suppliedMaterials" value="gas" />
+                    <span class="checkmark"></span>
+                    <i class="fas fa-fire"></i>
+                    LPG Gas
+                  </label>
+                  <label class="checkbox-item">
+                    <input type="checkbox" name="suppliedMaterials" value="water" />
+                    <span class="checkmark"></span>
+                    <i class="fas fa-water"></i>
+                    Drinking Water
+                  </label>
+                  <label class="checkbox-item">
+                    <input type="checkbox" name="suppliedMaterials" value="cleaning" />
+                    <span class="checkmark"></span>
+                    <i class="fas fa-spray-can"></i>
+                    Cleaning Supplies
+                  </label>
+                  <label class="checkbox-item">
+                    <input type="checkbox" name="suppliedMaterials" value="other" onchange="toggleSupplierCustomMaterialInput(this)" />
+                    <span class="checkmark"></span>
+                    <i class="fas fa-plus"></i>
+                    Other Materials
+                  </label>
+                </div>
+                
+                <!-- Custom Material Input for Suppliers -->
+                <div class="form-group" id="supplierCustomMaterialGroup" style="display: none; margin-top: 15px;">
+                  <label for="supplierCustomMaterials">Please specify other materials you supply:</label>
+                  <textarea 
+                    id="supplierCustomMaterials" 
+                    name="customSuppliedMaterials" 
+                    rows="3" 
+                    placeholder="Enter materials separated by commas (e.g., ice cubes, straws, food coloring, preservatives)"
+                  ></textarea>
+                  <i class="fas fa-edit input-icon"></i>
+                </div>
+              </div>
+
+              <div class="form-options">
+                <label class="checkbox-container">
+                  <input type="checkbox" id="supplierAgreeTerms" required />
+                  <span class="checkmark"></span>
+                  I agree to the <a href="#">Terms of Service</a> and
+                  <a href="#">Privacy Policy</a>
+                </label>
+              </div>
+
+              <button type="submit" class="btn-primary signin-btn">
+                <i class="fas fa-user-plus"></i>
+                Register as Supplier
+              </button>
+            </form>
+
+            <div class="signup-link">
+              <p>
+                <a href="#" onclick="showMainSignup()">← Back to sign up</a>
+              </p>
+              <p>
+                Already have an account?
+                <a href="signin.html">Sign In</a>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Role Selection Modal -->
+        <div id="roleModal" class="modal">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h2>Choose Your Role</h2>
+              <span class="close" onclick="hideRoleSelection()">&times;</span>
+            </div>
+            <div class="modal-body">
+              <p>Select how you want to join VendorBridge:</p>
+              <div class="role-options">
+                <div class="role-option" onclick="selectRole('vendor')">
+                  <div class="role-icon">
+                    <i class="fas fa-store"></i>
+                  </div>
+                  <h3>Vendor</h3>
+                  <p>I want to sell products and connect with suppliers</p>
+                  <div class="role-features">
+                    <span><i class="fas fa-check"></i> Find suppliers</span>
+                    <span><i class="fas fa-check"></i> Manage inventory</span>
+                    <span><i class="fas fa-check"></i> Track orders</span>
+                  </div>
+                </div>
+                <div class="role-option" onclick="selectRole('supplier')">
+                  <div class="role-icon">
+                    <i class="fas fa-truck"></i>
+                  </div>
+                  <h3>Supplier</h3>
+                  <p>I want to supply products to vendors</p>
+                  <div class="role-features">
+                    <span><i class="fas fa-check"></i> List products</span>
+                    <span><i class="fas fa-check"></i> Connect with vendors</span>
+                    <span><i class="fas fa-check"></i> Manage orders</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Background -->
+      <div class="signin-background">
+        <div class="bg-shape shape-1"></div>
+        <div class="bg-shape shape-2"></div>
+        <div class="bg-shape shape-3"></div>
+      </div>
+    </section>
+
+    <script src="api-helper.js"></script>
+    <script src="signup.js"></script>
+  </body>
+</html>

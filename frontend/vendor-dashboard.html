@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vendor Dashboard - VendorBridge</title>
+    <link rel="stylesheet" href="vendor-dashboard.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Header -->
+        <header class="dashboard-header">
+            <div class="header-content">
+                <div class="logo">
+                    <h1><i class="fas fa-handshake"></i> VendorBridge</h1>
+                </div>
+                <div class="user-info">
+                    <span class="welcome-text">Welcome, <span id="vendorName">Vendor</span></span>
+                    <div class="user-menu">
+                        <button class="user-menu-btn" onclick="toggleUserMenu()">
+                            <i class="fas fa-user-circle"></i>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="user-dropdown" id="userDropdown">
+                            <a href="#" onclick="editProfile()"><i class="fas fa-edit"></i> Edit Profile</a>
+                            <a href="#" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Dashboard Content -->
+        <main class="dashboard-main">
+            <!-- Stats Cards -->
+            <div class="stats-grid">
+                <div class="stat-card requests">
+                    <div class="stat-icon">
+                        <i class="fas fa-clipboard-list"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3 id="requestsCount">0</h3>
+                        <p>Total Requests</p>
+                        <span class="stat-change positive">
+                            <i class="fas fa-arrow-up"></i> +5 this week
+                        </span>
+                    </div>
+                </div>
+
+                <div class="stat-card orders">
+                    <div class="stat-icon">
+                        <i class="fas fa-shopping-cart"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3 id="ordersCount">0</h3>
+                        <p>Orders Received</p>
+                        <span class="stat-change positive">
+                            <i class="fas fa-arrow-up"></i> +3 this week
+                        </span>
+                    </div>
+                </div>
+
+                <div class="stat-card rating">
+                    <div class="stat-icon">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3 id="vendorRating">4.5</h3>
+                        <p>Vendor Rating</p>
+                        <div class="rating-stars" id="ratingStars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                    </div>
+                </div>
+
+               
+            </div>
+
+            <!-- Recent Activity Section -->
+            <div class="dashboard-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-clock"></i> Recent Activity</h2>
+                    <button class="view-all-btn">View All</button>
+                </div>
+                <div class="activity-list" id="activityList">
+                    <div class="activity-item">
+                        <div class="activity-icon new-request">
+                            <i class="fas fa-plus-circle"></i>
+                        </div>
+                        <div class="activity-content">
+                            <h4>New Request Received</h4>
+                            <p>Construction materials needed for residential project</p>
+                            <span class="activity-time">2 hours ago</span>
+                        </div>
+                        <div class="activity-action">
+                            <button class="btn-primary small">View</button>
+                        </div>
+                    </div>
+
+                    <div class="activity-item">
+                        <div class="activity-icon order-placed">
+                            <i class="fas fa-shopping-bag"></i>
+                        </div>
+                        <div class="activity-content">
+                            <h4>Order Placed</h4>
+                            <p>Cement and steel bars - ₹15,000</p>
+                            <span class="activity-time">1 day ago</span>
+                        </div>
+                        <div class="activity-action">
+                            <button class="btn-secondary small">Track</button>
+                        </div>
+                    </div>
+
+                    <div class="activity-item">
+                        <div class="activity-icon rating-received">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <div class="activity-content">
+                            <h4>New Rating Received</h4>
+                            <p>5-star rating from ABC Construction</p>
+                            <span class="activity-time">3 days ago</span>
+                        </div>
+                        <div class="activity-action">
+                            <button class="btn-secondary small">View</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="dashboard-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-bolt"></i> Quick Actions</h2>
+                </div>
+                <div class="quick-actions">
+                    <button class="action-btn" onclick="openRequestForm()">
+                        <i class="fas fa-shopping-list"></i>
+                        <span>Request Items</span>
+                    </button>
+                    <button class="action-btn" onclick="viewSuppliers()">
+                        <i class="fas fa-truck"></i>
+                        <span>View Suppliers</span>
+                    </button>
+                    <button class="action-btn" onclick="manageOrders()">
+                        <i class="fas fa-box"></i>
+                        <span>Manage Orders</span>
+                    </button>
+                    <button class="action-btn" onclick="viewAnalytics()">
+                        <i class="fas fa-chart-bar"></i>
+                        <span>View Analytics</span>
+                    </button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-spinner">
+            <i class="fas fa-spinner fa-spin"></i>
+            <p>Loading dashboard data...</p>
+        </div>
+    </div>
+
+    <script src="vendor-dashboard.js"></script>
+</body>
+</html>

@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grocery Request - VendorBridge</title>
+    <link rel="stylesheet" href="grocery-request.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="request-container">
+        <!-- Header -->
+        <header class="request-header">
+            <div class="header-content">
+                <div class="logo">
+                    <h1><i class="fas fa-handshake"></i> VendorBridge</h1>
+                </div>
+                <div class="nav-actions">
+                    <button class="btn-back" onclick="goBack()">
+                        <i class="fas fa-arrow-left"></i> Back to Dashboard
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="request-main">
+            <div class="form-container">
+                <div class="form-header">
+                    <h2><i class="fas fa-shopping-cart"></i> Grocery Item Request</h2>
+                    <p>Submit your grocery requirements and connect with suppliers</p>
+                </div>
+
+                <form id="groceryRequestForm" class="request-form">
+                    <!-- Vendor Information -->
+                    <div class="form-section">
+                        <h3><i class="fas fa-user"></i> Vendor Information</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="vendorName">Vendor Name *</label>
+                                <input type="text" id="vendorName" name="vendorName" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="contactEmail">Contact Email *</label>
+                                <input type="email" id="contactEmail" name="contactEmail" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="phoneNumber">Phone Number *</label>
+                                <input type="tel" id="phoneNumber" name="phoneNumber" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="businessType">Business Type</label>
+                                <select id="businessType" name="businessType">
+                                    <option value="">Select Business Type</option>
+                                    <option value="restaurant">Restaurant</option>
+                                    <option value="hotel">Hotel</option>
+                                    <option value="catering">Catering Service</option>
+                                    <option value="retail">Retail Store</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Delivery Information -->
+                    <div class="form-section">
+                        <h3><i class="fas fa-map-marker-alt"></i> Delivery Information</h3>
+                        <div class="form-group">
+                            <label for="deliveryAddress">Delivery Address *</label>
+                            <textarea id="deliveryAddress" name="deliveryAddress" rows="3" required placeholder="Enter complete delivery address"></textarea>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="preferredDate">Preferred Delivery Date *</label>
+                                <input type="date" id="preferredDate" name="preferredDate" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="urgency">Urgency Level</label>
+                                <select id="urgency" name="urgency">
+                                    <option value="normal">Normal</option>
+                                    <option value="urgent">Urgent</option>
+                                    <option value="asap">ASAP</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Grocery Items -->
+                    <div class="form-section">
+                        <h3><i class="fas fa-list"></i> Grocery Items</h3>
+                        <div id="itemsList" class="items-list">
+                            <div class="item-row">
+                                <div class="form-group">
+                                    <label>Item Category</label>
+                                    <select name="category[]" class="item-category">
+                                        <option value="">Select Category</option>
+                                        <option value="vegetables">Vegetables</option>
+                                        <option value="fruits">Fruits</option>
+                                        <option value="grains">Grains & Cereals</option>
+                                        <option value="dairy">Dairy Products</option>
+                                        <option value="meat">Meat & Poultry</option>
+                                        <option value="seafood">Seafood</option>
+                                        <option value="spices">Spices & Condiments</option>
+                                        <option value="beverages">Beverages</option>
+                                        <option value="snacks">Snacks & Packaged Foods</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Item Name *</label>
+                                    <input type="text" name="itemName[]" placeholder="e.g., Tomatoes, Rice, Milk" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Quantity *</label>
+                                    <input type="text" name="quantity[]" placeholder="e.g., 10 kg, 5 liters" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Quality/Grade</label>
+                                    <select name="quality[]">
+                                        <option value="">Select Quality</option>
+                                        <option value="premium">Premium</option>
+                                        <option value="standard">Standard</option>
+                                        <option value="economy">Economy</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Notes</label>
+                                    <input type="text" name="notes[]" placeholder="Special requirements">
+                                </div>
+                                <button type="button" class="btn-remove-item" onclick="removeItem(this)">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <button type="button" class="btn-add-item" onclick="addItem()">
+                            <i class="fas fa-plus"></i> Add Another Item
+                        </button>
+                    </div>
+
+                    <!-- Budget Information -->
+                    <div class="form-section">
+                        <h3><i class="fas fa-rupee-sign"></i> Budget Information</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="budgetRange">Budget Range</label>
+                                <select id="budgetRange" name="budgetRange">
+                                    <option value="">Select Budget Range</option>
+                                    <option value="under-5000">Under ₹5,000</option>
+                                    <option value="5000-15000">₹5,000 - ₹15,000</option>
+                                    <option value="15000-50000">₹15,000 - ₹50,000</option>
+                                    <option value="50000-100000">₹50,000 - ₹1,00,000</option>
+                                    <option value="above-100000">Above ₹1,00,000</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="paymentTerms">Payment Terms</label>
+                                <select id="paymentTerms" name="paymentTerms">
+                                    <option value="cash">Cash on Delivery</option>
+                                    <option value="credit-7">7 Days Credit</option>
+                                    <option value="credit-15">15 Days Credit</option>
+                                    <option value="credit-30">30 Days Credit</option>
+                                    <option value="advance">Advance Payment</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Additional Requirements -->
+                    <div class="form-section">
+                        <h3><i class="fas fa-clipboard-list"></i> Additional Requirements</h3>
+                        <div class="form-group">
+                            <label for="specialRequirements">Special Requirements</label>
+                            <textarea id="specialRequirements" name="specialRequirements" rows="4" placeholder="Any special requirements, certifications needed, packaging preferences, etc."></textarea>
+                        </div>
+                        <div class="checkbox-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="organicPreferred" value="1">
+                                <span class="checkmark"></span>
+                                Prefer Organic Products
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="bulkDiscount" value="1">
+                                <span class="checkmark"></span>
+                                Looking for Bulk Discounts
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="regularSupply" value="1">
+                                <span class="checkmark"></span>
+                                Need Regular Supply Partnership
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="form-actions">
+                        <button type="button" class="btn-secondary" onclick="saveDraft()">
+                            <i class="fas fa-save"></i> Save as Draft
+                        </button>
+                        <button type="submit" class="btn-primary">
+                            <i class="fas fa-paper-plane"></i> Submit Request
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </main>
+    </div>
+
+    <!-- Success Modal -->
+    <div id="successModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-check-circle"></i> Request Submitted Successfully!</h3>
+            </div>
+            <div class="modal-body">
+                <p>Your grocery request has been submitted successfully. Suppliers will review your requirements and contact you soon.</p>
+                <p><strong>Request ID:</strong> <span id="requestId">GR-2024-001</span></p>
+            </div>
+            <div class="modal-actions">
+                <button class="btn-primary" onclick="closeModal()">OK</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-spinner">
+            <i class="fas fa-spinner fa-spin"></i>
+            <p>Submitting your request...</p>
+        </div>
+    </div>
+
+    <script src="grocery-request.js"></script>
+</body>
+</html>
